@@ -60,7 +60,7 @@ end
 
 def over?(board)
   if won?(board) != false || full?(board) != false || draw?(board) == true
-    return true
+    true
   end
   false
 end
@@ -77,10 +77,12 @@ def turn(board)
   puts "Please enter 1-9:"
   input = gets.strip
   index = input_to_index(input)
-  if valid_move?(board, index)
+  if !valid_move?(board, index)
+    turn(board)
+  else
     move(board, index, current_player(board))
     display_board(board)
-  else
+    over?(board)
     turn(board)
   end
 end
@@ -104,6 +106,7 @@ def current_player(board)
     "O"
   end
 end
+
 
 def play(board)
   while !over?(board)
